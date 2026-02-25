@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Roadmaps</title>
+    <title>Revision Bhai</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #0f1419; color: #fff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #0f1419; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Main content wrapper */
+        .main-content { flex: 1; }
         
         /* Hero Section */
-        .hero { text-align: center; padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+        .hero { text-align: center; padding: 120px 20px; max-width: 1200px; margin: 0 auto; }
         .hero.hidden { display: none; }
         .hero h1 { font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 20px; color: #a0aec0; margin-bottom: 40px; line-height: 1.6; }
-        .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: nowrap; }
-        .btn { padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s; cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
-        .btn.active { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.5); }
-        
-        /* Logo only header */
-        .logo-header { text-align: center; padding: 40px 20px; display: none; }
-        .logo-header.visible { display: block; }
-        .logo-header h1 { font-size: 36px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cta-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .btn { padding: 40px 50px; border-radius: 16px; text-decoration: none; font-weight: 700; font-size: 24px; transition: all 0.3s; cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3); }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5); }
+        .btn.active { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); box-shadow: 0 0 0 4px rgba(245, 87, 108, 0.5); }
         
         /* Roadmaps Grid */
         .roadmaps { max-width: 1200px; margin: 60px auto; padding: 0 40px; display: none; }
-        .roadmaps.active { display: block; }
-        .section-title { font-size: 32px; margin-bottom: 30px; text-align: center; }
+        .roadmaps.active { display: block; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 20px; padding: 30px 40px; box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2); }
+        .section-title { font-size: 24px; margin-bottom: 10px; text-align: center; display: none; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
         .card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; transition: all 0.3s; cursor: pointer; }
         .card:hover { transform: translateY(-4px); border-color: #667eea; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
@@ -35,31 +33,63 @@
         .card-desc { font-size: 14px; color: #a0aec0; line-height: 1.5; }
         
         /* Roadmap View */
-        .roadmap-view { width: 100%; min-height: 100vh; padding: 40px; display: none; background: #0f1419; overflow-x: auto; }
+        .roadmap-view { width: 100%; min-height: 100vh; padding: 10px 20px; display: none; background: #0f1419; overflow: hidden; position: relative; }
         .roadmap-view.active { display: block; }
-        .back-btn { background: #1a1f2e; color: #fff; border: 1px solid #2d3748; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-bottom: 30px; font-size: 16px; }
-        .back-btn:hover { border-color: #667eea; }
+        .back-btn { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: #fff; border: 2px solid #f5576c; padding: 12px 24px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4); transition: all 0.3s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(245, 87, 108, 0.6); }
         
-        .roadmap-canvas { position: relative; width: 1400px; min-height: 1200px; margin: 0 auto; }
+        .roadmap-container { width: 100%; height: calc(100vh - 100px); overflow: auto; position: relative; }
+        .roadmap-canvas { position: relative; width: 1400px; min-height: 1200px; margin: 0 auto; transform-origin: 0 0; transition: transform 0.3s ease; }
         
         .roadmap-box { position: absolute; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 8px; padding: 15px 20px; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer; transition: all 0.3s; text-align: center; min-width: 150px; }
         .roadmap-box:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.4); background: #2d3748; }
         .roadmap-box.start { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #764ba2; }
         .roadmap-box.important { border-color: #f5576c; background: #2d1f2e; }
+        .roadmap-box.status-done { background: #1a3a1a !important; border-color: #4ade80 !important; }
+        .roadmap-box.status-in-progress { background: #3a3a1a !important; border-color: #fbbf24 !important; }
+
         
         svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .roadmap-box { z-index: 1; }
         
+        /* Popup Overlay */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; z-index: 99; opacity: 0; transition: opacity 0.3s ease; }
+        .popup-overlay.active { display: block; opacity: 1; }
+        
         /* Popup Box */
-        .popup-box { position: absolute; display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 400px; max-height: 500px; overflow-y: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); z-index: 100; }
-        .popup-box.active { display: block; }
+        .popup-box { position: fixed; top: 50vh; left: 50vw; transform: translate(-50%, -50%) scale(0.8); display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 600px; max-width: 90vw; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); z-index: 100; opacity: 0; transition: all 0.3s ease; }
+        .popup-box.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px; }
-        .popup-title { font-size: 20px; color: #58a6ff; font-weight: bold; flex-shrink: 0; }
+        .popup-title { font-size: 20px; color: #58a6ff; font-weight: bold; flex: 1; }
         .popup-actions { display: flex; gap: 8px; align-items: center; }
-        .popup-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 0; line-height: 1; }
-        .popup-close:hover { color: #f5576c; }
-        .popup-body ul { margin-left: 20px; }
-        .popup-body li { margin: 10px 0; color: #c9d1d9; line-height: 1.5; font-size: 13px; }
+        .popup-body ul { margin-left: 0; list-style: none; padding: 0; }
+        .popup-body li { margin: 10px 0; color: #c9d1d9; line-height: 1.5; font-size: 13px; display: flex; align-items: flex-start; gap: 10px; word-wrap: break-word; }
+        .popup-body li input[type="checkbox"] { margin-top: 3px; cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; }
+        .popup-body li span { flex: 1; }
+        .popup-body li.checked span { color: #4ade80; }
+        
+        /* Progress Counter */
+        .progress-counter { position: fixed; top: 20px; right: 40px; display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 15px 20px; z-index: 50; transition: all 0.3s ease; }
+        .progress-counter.active { display: block; }
+        .progress-counter.pulse { animation: pulse 0.5s ease; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(88, 166, 255, 0.6); } }
+        .counter-item { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 14px; font-weight: 600; }
+        .counter-item .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .counter-item.done-counter .dot { background: #4ade80; }
+        .counter-item.done-counter { color: #4ade80; }
+        .counter-item.in-progress-counter .dot { background: #fbbf24; }
+        .counter-item.in-progress-counter { color: #fbbf24; }
+
+        .counter-item.inactive { color: #4a5568; }
+        .counter-item.inactive .dot { background: #4a5568; }
+        .reset-btn { margin-top: 10px; padding: 6px 12px; background: #dc2626; color: #fff; border: 1px solid #ef4444; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; float: right; }
+        .reset-btn:hover { background: #b91c1c; transform: translateY(-1px); }
+        
+        /* Zoom Controls */
+        .zoom-controls { position: fixed; bottom: 40px; right: 40px; display: none; flex-direction: column; gap: 10px; z-index: 50; }
+        .zoom-controls.active { display: flex; }
+        .zoom-btn { background: #1a1f2e; color: #fff; border: 2px solid #58a6ff; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; transition: all 0.3s; }
+        .zoom-btn:hover { background: #2d3748; border-color: #667eea; transform: scale(1.05); }
         
         /* Progress Buttons */
         .progress-btn { padding: 6px 10px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; }
@@ -68,158 +98,248 @@
         .progress-btn.done::before { background: #4ade80; }
         .progress-btn.in-progress { background: #3a3a1a; color: #fbbf24; border: 1px solid #fbbf24; }
         .progress-btn.in-progress::before { background: #fbbf24; }
-        .progress-btn.skip { background: #1a1a1a; color: #6b7280; border: 1px solid #6b7280; }
-        .progress-btn.skip::before { background: #6b7280; }
         .progress-btn:hover { transform: translateY(-1px); }
+        .progress-btn.btn-disabled { opacity: 0.5; }
+        
+        /* Feedback Widget */
+        .feedback-widget { position: fixed; bottom: 60px; right: 40px; z-index: 50; }
+        .feedback-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 14px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .feedback-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6); }
+        .feedback-form { position: absolute; bottom: 60px; right: 0; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 350px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); display: none; }
+        .feedback-form.active { display: block; }
+        .feedback-form h3 { color: #58a6ff; margin-bottom: 15px; font-size: 18px; }
+        .feedback-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .category-btn { background: #2d3748; color: #fff; border: 2px solid #2d3748; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .category-btn:hover { background: #3d4758; }
+        .category-btn.selected { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea; }
+        .feedback-form textarea { width: 100%; min-height: 120px; background: #0f1419; border: 1px solid #2d3748; border-radius: 8px; padding: 12px; color: #fff; font-size: 14px; font-family: inherit; resize: vertical; display: none; }
+        .feedback-form textarea.active { display: block; }
+        .feedback-form textarea:focus { outline: none; border-color: #58a6ff; }
+        .feedback-actions { display: none; gap: 10px; margin-top: 15px; }
+        .feedback-actions.active { display: flex; }
+        .feedback-submit { flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .feedback-submit:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .feedback-cancel { flex: 1; background: #2d3748; color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .feedback-cancel:hover { background: #3d4758; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 60px; border-bottom: 3px solid #764ba2; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); display: flex; align-items: center; justify-content: space-between; }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .logo { width: 50px; height: 50px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #667eea; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .header-content { }
+        header h1 { font-size: 32px; font-weight: 700; color: #fff; margin: 0; }
+        header p { color: #e0e7ff; font-size: 14px; font-weight: 400; margin: 5px 0 0 0; }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .youtube-link { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
+        .youtube-link:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4); }
+        .login-btn { padding: 10px 24px; background: rgba(255, 255, 255, 0.2); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .login-btn:hover { background: #fff; color: #667eea; transform: translateY(-2px); }
         
         /* Footer */
-        footer { background: #1a1f2e; padding: 40px; text-align: center; margin-top: 80px; border-top: 1px solid #2d3748; }
+        footer { background: #1a1f2e; padding: 40px; text-align: center; border-top: 1px solid #2d3748; margin-top: auto; }
         footer p { color: #a0aec0; font-size: 14px; }
     </style>
 </head>
 <body>
-    <section class="hero" id="hero-section">
-        <h1>Developer Roadmaps</h1>
-        <p>Community driven roadmaps, articles and resources for developers. Learn to become a modern developer by following the skills paths.</p>
-        <div class="cta-buttons">
-            <button class="btn" onclick="toggleTab('his', this)">His</button>
-            <button class="btn" onclick="toggleTab('geo', this)">Geo</button>
-            <button class="btn" onclick="toggleTab('eco', this)">Eco</button>
-            <button class="btn" onclick="toggleTab('pol', this)">Pol</button>
-        </div>
-    </section>
-
-    <div class="logo-header" id="logo-header">
-        <h1>Developer Roadmaps</h1>
-    </div>
-
-    <section class="roadmaps" id="his">
-        <h2 class="section-title">His Chapters</h2>
-        <div class="grid">
-            <div class="card" onclick="showRoadmap('chap1')">
-                <div class="card-icon">🎨</div>
-                <div class="card-title">Chap-1</div>
-                <div class="card-desc">Step by step guide to becoming a modern frontend developer</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <div class="card-title">Chap-2</div>
-                <div class="card-desc">Step by step guide to becoming a modern backend developer</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔧</div>
-                <div class="card-title">Chap-3</div>
-                <div class="card-desc">Step by step guide to becoming a modern DevOps engineer</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">📱</div>
-                <div class="card-title">Chap-4</div>
-                <div class="card-desc">Step by step guide to becoming a modern full stack developer</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <div class="card-title">Chap-5</div>
-                <div class="card-desc">Step by step guide to becoming an AI engineer</div>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔒</div>
-                <div class="card-title">Chap-6</div>
-                <div class="card-desc">Step by step guide to becoming a security expert</div>
+    <header>
+        <div class="header-left">
+            <div class="logo">RB</div>
+            <div class="header-content">
+                <h1>Revision Bhai</h1>
+                <p>Your comprehensive learning companion for exam preparation</p>
             </div>
         </div>
-    </section>
+        <div class="header-right">
+            <a href="https://youtube.com/@revisionbhai" target="_blank" class="youtube-link">
+                <span>▶</span>
+                <span>YouTube</span>
+            </a>
+            <button class="login-btn" onclick="alert('Login feature coming soon!')">Login</button>
+        </div>
+    </header>
+    <div class="main-content">
+        <section class="hero" id="hero-section">
+            <div class="cta-buttons">
+                <button class="btn" onclick="toggleTab('History', this)">History</button>
+                <button class="btn" onclick="toggleTab('Geography', this)">Geography</button>
+                <button class="btn" onclick="toggleTab('Economy', this)">Economy</button>
+                <button class="btn" onclick="toggleTab('Polity', this)">Polity</button>
+            </div>
+        </section>
 
-    <section class="roadmaps" id="geo">
-        <h2 class="section-title">Geography Content</h2>
-        <p style="text-align: center; color: #a0aec0;">Geography content will go here</p>
-    </section>
+        <section class="roadmaps" id="History">
+            <h2 class="section-title">History Chapters</h2>
+            <div class="grid">
+                <div class="card" onclick="showRoadmap('chap1')">
+                    <div class="card-icon">🎨</div>
+                    <div class="card-title">Chap-1</div>
+                    <div class="card-desc">Step by step guide to becoming a modern frontend developer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-title">Chap-2</div>
+                    <div class="card-desc">Step by step guide to becoming a modern backend developer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <div class="card-title">Chap-3</div>
+                    <div class="card-desc">Step by step guide to becoming a modern DevOps engineer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <div class="card-title">Chap-4</div>
+                    <div class="card-desc">Step by step guide to becoming a modern full stack developer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <div class="card-title">Chap-5</div>
+                    <div class="card-desc">Step by step guide to becoming an AI engineer</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <div class="card-title">Chap-6</div>
+                    <div class="card-desc">Step by step guide to becoming a security expert</div>
+                </div>
+            </div>
+        </section>
 
-    <section class="roadmaps" id="eco">
-        <h2 class="section-title">Economics Content</h2>
-        <p style="text-align: center; color: #a0aec0;">Economics content will go here</p>
-    </section>
+        <section class="roadmaps" id="Geography">
+            <h2 class="section-title">Geography Content</h2>
+            <p style="text-align: center; color: #a0aec0;">Geography content will go here</p>
+        </section>
 
-    <section class="roadmaps" id="pol">
-        <h2 class="section-title">Politics Content</h2>
-        <p style="text-align: center; color: #a0aec0;">Politics content will go here</p>
-    </section>
+        <section class="roadmaps" id="Economy">
+            <h2 class="section-title">Economy Content</h2>
+            <p style="text-align: center; color: #a0aec0;">Economy content will go here</p>
+        </section>
 
-    <!-- Chap-1 Roadmap View -->
-    <section class="roadmap-view" id="chap1-roadmap">
-        <button class="back-btn" onclick="backToChapters()">← Back to Chapters</button>
-        <h2 class="section-title">Chap-1: History Roadmap</h2>
-        
-        <div class="roadmap-canvas">
-            <svg>
-                <line x1="700" y1="80" x2="700" y2="150" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="200" x2="700" y2="270" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="320" x2="500" y2="390" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="320" x2="900" y2="390" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="500" y1="440" x2="500" y2="510" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="900" y1="440" x2="900" y2="510" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="500" y1="560" x2="700" y2="630" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="900" y1="560" x2="700" y2="630" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="680" x2="700" y2="750" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="800" x2="500" y2="870" stroke="#58a6ff" stroke-width="2"/>
-                <line x1="700" y1="800" x2="900" y2="870" stroke="#58a6ff" stroke-width="2"/>
-            </svg>
+        <section class="roadmaps" id="Polity">
+            <h2 class="section-title">Polity Content</h2>
+            <p style="text-align: center; color: #a0aec0;">Polity content will go here</p>
+        </section>
+
+        <!-- Chap-1 Roadmap View -->
+        <section class="roadmap-view" id="chap1-roadmap">
+            <button class="back-btn" onclick="backToChapters()">← Back to Chapters</button>
+            <h2 class="section-title">Chap-1: History Roadmap</h2>
             
-            <!-- Start -->
-            <div class="roadmap-box start" style="top: 30px; left: 625px;">Start Here</div>
+            <!-- Progress Counter -->
+            <div class="progress-counter" id="progress-counter">
+                <div class="counter-item done-counter inactive">
+                    <span class="dot"></span>
+                    <span>Done: <span id="done-count">0</span></span>
+                </div>
+                <div class="counter-item in-progress-counter inactive">
+                    <span class="dot"></span>
+                    <span>In Progress: <span id="progress-count">0</span></span>
+                </div>
+                <button class="reset-btn" onclick="resetProgress()">Reset</button>
+            </div>
             
-            <!-- Introduction -->
-            <div class="roadmap-box" style="top: 150px; left: 600px;">Introduction to History</div>
+            <!-- Zoom Controls -->
+            <div class="zoom-controls" id="zoom-controls">
+                <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+                <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+                <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom">⟲</button>
+            </div>
             
-            <!-- Main Path -->
-            <div class="roadmap-box important" style="top: 270px; left: 575px;">Ancient Civilizations</div>
-            
-            <!-- Branch 1 -->
-            <div class="roadmap-box" style="top: 390px; left: 400px;">Mesopotamia</div>
-            <div class="roadmap-box" style="top: 390px; left: 800px;">Ancient Egypt</div>
-            
-            <!-- Sub branches -->
-            <div class="roadmap-box" style="top: 510px; left: 400px;">Sumerian Culture</div>
-            <div class="roadmap-box" style="top: 510px; left: 800px;">Pharaohs & Pyramids</div>
-            
-            <!-- Merge back -->
-            <div class="roadmap-box important" style="top: 630px; left: 575px;">Classical Period</div>
-            
-            <!-- Continue -->
-            <div class="roadmap-box" style="top: 750px; left: 600px;">Greek & Roman Era</div>
-            
-            <!-- Final branches -->
-            <div class="roadmap-box" style="top: 870px; left: 400px;">Greek Philosophy</div>
-            <div class="roadmap-box" style="top: 870px; left: 800px;">Roman Empire</div>
-            
-            <!-- Additional topics -->
-            <div class="roadmap-box" style="top: 270px; left: 200px;">Indus Valley</div>
-            <div class="roadmap-box" style="top: 270px; left: 950px;" onclick="showPopup(event, 'ancient-china')">Ancient China</div>
-            <div class="roadmap-box" style="top: 630px; left: 200px;">Persian Empire</div>
-            <div class="roadmap-box" style="top: 630px; left: 950px;">Byzantine Era</div>
-            
-            <!-- Popup Box -->
-            <div class="popup-box" id="popup-box">
-                <div class="popup-header">
-                    <h3 class="popup-title" id="popup-title">Topic Title</h3>
-                    <div class="popup-actions">
-                        <button class="progress-btn done" onclick="setProgress('done')">Done</button>
-                        <button class="progress-btn in-progress" onclick="setProgress('in-progress')">In Progress</button>
-                        <button class="progress-btn skip" onclick="setProgress('skip')">Skip</button>
-                        <button class="popup-close" onclick="closePopup()">&times;</button>
+            <div class="roadmap-container" id="roadmap-container">
+            <div class="roadmap-canvas" id="roadmap-canvas">
+                <svg>
+                    <line x1="700" y1="80" x2="700" y2="150" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="200" x2="500" y2="270" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="200" x2="900" y2="270" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="500" y1="320" x2="500" y2="390" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="900" y1="320" x2="900" y2="390" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="500" y1="440" x2="700" y2="510" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="900" y1="440" x2="700" y2="510" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="560" x2="700" y2="630" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="680" x2="500" y2="750" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="680" x2="900" y2="750" stroke="#58a6ff" stroke-width="2"/>
+                </svg>
+                
+                <!-- Introduction -->
+                <div class="roadmap-box" style="top: 30px; left: 600px;">Introduction to History</div>
+                
+                <!-- Main Path -->
+                <div class="roadmap-box" style="top: 150px; left: 575px;">Ancient Civilizations</div>
+                
+                <!-- Branch 1 -->
+                <div class="roadmap-box" style="top: 270px; left: 400px;">Mesopotamia</div>
+                <div class="roadmap-box" style="top: 270px; left: 800px;">Ancient Egypt</div>
+                
+                <!-- Sub branches -->
+                <div class="roadmap-box" style="top: 390px; left: 400px;">Sumerian Culture</div>
+                <div class="roadmap-box" style="top: 390px; left: 800px;">Pharaohs & Pyramids</div>
+                
+                <!-- Merge back -->
+                <div class="roadmap-box" style="top: 510px; left: 575px;">Classical Period</div>
+                
+                <!-- Continue -->
+                <div class="roadmap-box" style="top: 630px; left: 600px;">Greek & Roman Era</div>
+                
+                <!-- Final branches -->
+                <div class="roadmap-box" style="top: 750px; left: 400px;">Greek Philosophy</div>
+                <div class="roadmap-box" style="top: 750px; left: 800px;">Roman Empire</div>
+                
+                <!-- Additional topics -->
+                <div class="roadmap-box" style="top: 150px; left: 200px;" onclick="showPopup(event, 'indus-valley')">Indus Valley</div>
+                <div class="roadmap-box" style="top: 150px; left: 950px;" onclick="showPopup(event, 'ancient-china')">Ancient China</div>
+                <div class="roadmap-box" style="top: 510px; left: 200px;">Persian Empire</div>
+                <div class="roadmap-box" style="top: 510px; left: 950px;">Byzantine Era</div>
+                
+                <!-- Popup Overlay -->
+                <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
+                
+                <!-- Popup Box -->
+                <div class="popup-box" id="popup-box">
+                    <div class="popup-header">
+                        <h3 class="popup-title" id="popup-title">Topic Title</h3>
+                        <div class="popup-actions">
+                            <button class="progress-btn done" onclick="checkAndSetProgress('done')" id="done-btn" type="button">Done</button>
+                            <button class="progress-btn in-progress" onclick="setProgress('in-progress')">In Progress</button>
+                        </div>
+                    </div>
+                    <div class="popup-body" id="popup-body">
+                        <!-- Content will be inserted here -->
                     </div>
                 </div>
-                <div class="popup-body" id="popup-body">
-                    <!-- Content will be inserted here -->
-                </div>
             </div>
-        </div>
-    </section>
+            </div>
+        </section>
+    </div>
 
     <footer>
         <p>© 2024 Developer Roadmaps. Community driven learning paths.</p>
     </footer>
 
+    <!-- Feedback Widget -->
+    <div class="feedback-widget">
+        <button class="feedback-btn" onclick="toggleFeedback()">
+            <span>💬</span>
+            <span>Feedback</span>
+        </button>
+        <div class="feedback-form" id="feedback-form">
+            <h3>Send Feedback</h3>
+            <div class="feedback-categories">
+                <button class="category-btn" onclick="selectCategory(this, 'Incorrect Notes')">📝 Incorrect Notes</button>
+                <button class="category-btn" onclick="selectCategory(this, 'Appreciation')">❤️ Appreciation</button>
+                <button class="category-btn" onclick="selectCategory(this, 'Website Improvements')">🚀 Improvements</button>
+                <button class="category-btn" onclick="selectCategory(this, 'Bhadas')">😤 Bhadas</button>
+            </div>
+            <textarea id="feedback-text" placeholder="Share your feedback..."></textarea>
+            <div class="feedback-actions">
+                <button class="feedback-submit" onclick="submitFeedback()">Send</button>
+                <button class="feedback-cancel" onclick="toggleFeedback()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let currentZoom = 1;
+        let currentPopupId = null;
+        let progressCounts = { done: 0, 'in-progress': 0 };
+
         const topicData = {
             'ancient-china': {
                 title: 'Ancient China',
@@ -233,6 +353,21 @@
                         <li><strong>Han Dynasty (206 BCE-220 CE):</strong> Golden age of Chinese civilization, established Silk Road trade routes</li>
                         <li><strong>Inventions:</strong> Paper, gunpowder, compass, and printing technology originated in ancient China</li>
                         <li><strong>Agricultural Society:</strong> Rice cultivation in south, millet and wheat in north formed economic foundation</li>
+                    </ul>
+                `
+            },
+            'indus-valley': {
+                title: 'Indus Valley Civilization',
+                content: `
+                    <ul>
+                        <li><strong>Time Period (3300-1300 BCE):</strong> One of the world's earliest urban civilizations, contemporary with ancient Egypt and Mesopotamia</li>
+                        <li><strong>Major Cities:</strong> Harappa and Mohenjo-daro were well-planned cities with advanced drainage systems</li>
+                        <li><strong>Urban Planning:</strong> Grid-pattern streets, standardized brick sizes, and sophisticated water management systems</li>
+                        <li><strong>Trade Networks:</strong> Extensive trade with Mesopotamia, Afghanistan, and Central Asia</li>
+                        <li><strong>Writing System:</strong> Indus script remains undeciphered, found on seals and pottery</li>
+                        <li><strong>Economy:</strong> Agriculture-based with wheat, barley, and cotton cultivation; also engaged in craft production</li>
+                        <li><strong>Technology:</strong> Advanced metallurgy, bead-making, and standardized weights and measures</li>
+                        <li><strong>Decline:</strong> Mysterious decline around 1300 BCE, possibly due to climate change or river course changes</li>
                     </ul>
                 `
             }
@@ -261,61 +396,296 @@
 
         function showRoadmap(chapId) {
             document.getElementById('hero-section').classList.add('hidden');
-            document.getElementById('logo-header').classList.add('visible');
+            document.querySelector('header').style.display = 'none';
+            document.getElementById('zoom-controls').classList.add('active');
+            document.getElementById('progress-counter').classList.add('active');
             
             document.querySelectorAll('.roadmaps').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(chapId + '-roadmap').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function backToChapters() {
             document.getElementById('hero-section').classList.remove('hidden');
-            document.getElementById('logo-header').classList.remove('visible');
+            document.querySelector('header').style.display = 'block';
+            document.getElementById('zoom-controls').classList.remove('active');
+            document.getElementById('progress-counter').classList.remove('active');
             
             document.querySelectorAll('.roadmap-view').forEach(view => {
                 view.classList.remove('active');
             });
-            document.getElementById('his').classList.add('active');
+            document.getElementById('History').classList.add('active');
+            resetZoom();
         }
 
         function showPopup(event, topicId) {
             event.stopPropagation();
             const popup = document.getElementById('popup-box');
+            const overlay = document.getElementById('popup-overlay');
             const data = topicData[topicId];
             
             if (data) {
+                currentPopupId = topicId;
+                popup.dataset.topicElement = event.target.id || event.target.textContent;
                 document.getElementById('popup-title').textContent = data.title;
-                document.getElementById('popup-body').innerHTML = data.content;
                 
-                const box = event.target;
-                const rect = box.getBoundingClientRect();
-                const canvas = document.querySelector('.roadmap-canvas');
-                const canvasRect = canvas.getBoundingClientRect();
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = data.content;
+                const listItems = tempDiv.querySelectorAll('li');
+                listItems.forEach(li => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    const textSpan = document.createElement('span');
+                    textSpan.innerHTML = li.innerHTML;
+                    li.innerHTML = '';
+                    li.appendChild(checkbox);
+                    li.appendChild(textSpan);
+                });
                 
-                // Position popup to the right of the clicked box
-                popup.style.left = (rect.right - canvasRect.left + 20) + 'px';
-                popup.style.top = (rect.top - canvasRect.top) + 'px';
+                document.getElementById('popup-body').innerHTML = tempDiv.innerHTML;
                 
-                popup.classList.add('active');
+                // Add event listeners after DOM insertion
+                document.querySelectorAll('#popup-body input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        if (this.checked) {
+                            this.parentElement.classList.add('checked');
+                        } else {
+                            this.parentElement.classList.remove('checked');
+                        }
+                        updateDoneButton();
+                    });
+                });
+                
+                const doneBtn = document.getElementById('done-btn');
+                doneBtn.classList.add('btn-disabled');
+                
+                overlay.classList.add('active');
+                setTimeout(() => {
+                    popup.classList.add('active');
+                }, 10);
             }
         }
 
         function closePopup() {
-            document.getElementById('popup-box').classList.remove('active');
+            const popup = document.getElementById('popup-box');
+            const overlay = document.getElementById('popup-overlay');
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+            currentPopupId = null;
+        }
+
+        function updateDoneButton() {
+            const checkboxes = document.querySelectorAll('#popup-body input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            const doneBtn = document.getElementById('done-btn');
+            if (allChecked) {
+                doneBtn.classList.remove('btn-disabled');
+            } else {
+                doneBtn.classList.add('btn-disabled');
+            }
+        }
+
+        function checkAndSetProgress(status) {
+            const checkboxes = document.querySelectorAll('#popup-body input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            if (!allChecked) {
+                showCustomAlert('Please go through all the points to mark as <strong>Done</strong>');
+                return;
+            }
+            setProgress(status);
+        }
+
+        function showCustomAlert(message) {
+            const alertBox = document.createElement('div');
+            alertBox.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%); border: 2px solid #58a6ff; border-radius: 16px; padding: 30px 40px; z-index: 200; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9); min-width: 400px; text-align: center;';
+            alertBox.innerHTML = `
+                <div style="font-size: 18px; color: #fff; margin-bottom: 20px; line-height: 1.6;">${message}</div>
+                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">OK</button>
+            `;
+            document.body.appendChild(alertBox);
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.2, 2);
+            document.getElementById('roadmap-canvas').style.transform = `scale(${currentZoom})`;
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.2, 0.5);
+            document.getElementById('roadmap-canvas').style.transform = `scale(${currentZoom})`;
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            const canvas = document.getElementById('roadmap-canvas');
+            const container = document.getElementById('roadmap-container');
+            canvas.style.transform = `scale(1)`;
+            container.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressCounter() {
+            document.getElementById('done-count').textContent = progressCounts.done;
+            document.getElementById('progress-count').textContent = progressCounts['in-progress'];
+            
+            document.querySelector('.done-counter').classList.toggle('inactive', progressCounts.done === 0);
+            document.querySelector('.in-progress-counter').classList.toggle('inactive', progressCounts['in-progress'] === 0);
+            
+            const counter = document.getElementById('progress-counter');
+            counter.classList.add('pulse');
+            setTimeout(() => counter.classList.remove('pulse'), 500);
+            
+            saveProgress();
         }
 
         function setProgress(status) {
-            console.log('Progress set to:', status);
-            // You can add logic here to save the progress status
+            if (currentPopupId) {
+                const boxes = document.querySelectorAll('.roadmap-box');
+                boxes.forEach(box => {
+                    if (box.onclick && box.onclick.toString().includes(currentPopupId)) {
+                        let previousStatus = null;
+                        if (box.classList.contains('status-done')) previousStatus = 'done';
+                        else if (box.classList.contains('status-in-progress')) previousStatus = 'in-progress';
+                        
+                        if (previousStatus) {
+                            progressCounts[previousStatus]--;
+                        }
+                        
+                        box.classList.remove('status-done', 'status-in-progress');
+                        box.classList.add(`status-${status}`);
+                        
+                        progressCounts[status]++;
+                        
+                        updateProgressCounter();
+                    }
+                });
+            }
             closePopup();
+        }
+
+        function resetProgress() {
+            progressCounts = { done: 0, 'in-progress': 0 };
+            
+            const boxes = document.querySelectorAll('.roadmap-box');
+            boxes.forEach(box => {
+                box.classList.remove('status-done', 'status-in-progress');
+            });
+            
+            updateProgressCounter();
+        }
+
+        function saveProgress() {
+            const topicStatuses = {};
+            document.querySelectorAll('.roadmap-box').forEach(box => {
+                const text = box.textContent.trim();
+                if (box.classList.contains('status-done')) topicStatuses[text] = 'done';
+                else if (box.classList.contains('status-in-progress')) topicStatuses[text] = 'in-progress';
+            });
+            localStorage.setItem('revisionBhaiProgress', JSON.stringify(topicStatuses));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('revisionBhaiProgress');
+            if (saved) {
+                const topicStatuses = JSON.parse(saved);
+                document.querySelectorAll('.roadmap-box').forEach(box => {
+                    const text = box.textContent.trim();
+                    const status = topicStatuses[text];
+                    if (status) {
+                        box.classList.add(`status-${status}`);
+                        progressCounts[status]++;
+                    }
+                });
+                updateProgressCounter();
+            }
+        }
+
+        // Load progress on page load
+        window.addEventListener('DOMContentLoaded', loadProgress);
+
+        // Feedback functions
+        let selectedCategory = '';
+        
+        function toggleFeedback() {
+            const form = document.getElementById('feedback-form');
+            form.classList.toggle('active');
+            if (!form.classList.contains('active')) {
+                selectedCategory = '';
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+                document.getElementById('feedback-text').value = '';
+                document.getElementById('feedback-text').classList.remove('active');
+                document.querySelector('.feedback-actions').classList.remove('active');
+            }
+        }
+
+        function selectCategory(btn, category) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedCategory = category;
+            document.getElementById('feedback-text').classList.add('active');
+            document.querySelector('.feedback-actions').classList.add('active');
+        }
+
+        async function submitFeedback() {
+            const feedback = document.getElementById('feedback-text').value.trim();
+            if (!selectedCategory) {
+                showCustomAlert('Please select a feedback category');
+                return;
+            }
+            if (!feedback) {
+                showCustomAlert('Please enter your feedback');
+                return;
+            }
+            
+            try {
+                // Replace with your Google Apps Script Web App URL
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbx-d6bTNuJjOjKzRghB7HZLmuFBuraiB7degqS8cZm-E2Or-Kn8sJ0tCyp7njZVoesDpQ/exec';
+                
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        category: selectedCategory,
+                        feedback: feedback,
+                        timestamp: new Date().toISOString(),
+                        page: window.location.href
+                    })
+                });
+                
+                document.getElementById('feedback-text').value = '';
+                document.getElementById('feedback-text').classList.remove('active');
+                document.querySelector('.feedback-actions').classList.remove('active');
+                selectedCategory = '';
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+                toggleFeedback();
+                showCustomAlert('Thank you for your feedback! We appreciate your input.');
+            } catch (error) {
+                showCustomAlert('Error sending feedback. Please try again.');
+            }
         }
 
         // Close popup when clicking outside
         document.addEventListener('click', function(event) {
             const popup = document.getElementById('popup-box');
             if (popup.classList.contains('active') && !popup.contains(event.target)) {
-                closePopup();
+                const roadmapBoxes = document.querySelectorAll('.roadmap-box');
+                let clickedOnBox = false;
+                
+                roadmapBoxes.forEach(box => {
+                    if (box.contains(event.target)) {
+                        clickedOnBox = true;
+                    }
+                });
+                
+                if (!clickedOnBox) {
+                    closePopup();
+                }
             }
         });
     </script>
