@@ -9,7 +9,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #0f1419; color: #fff; }
         
         /* Hero Section */
-        .hero { text-align: center; padding: 80px 20px; max-width: 900px; margin: 0 auto; transition: filter 0.3s; }
+        .hero { text-align: center; padding: 80px 20px; max-width: 900px; margin: 0 auto; }
         .hero.hidden { display: none; }
         .hero h1 { font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 20px; color: #a0aec0; margin-bottom: 40px; line-height: 1.6; }
@@ -19,19 +19,12 @@
         .btn.active { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.5); }
         
         /* Logo only header */
-        .logo-header { text-align: center; padding: 40px 20px; display: none; transition: filter 0.3s; }
+        .logo-header { text-align: center; padding: 40px 20px; display: none; }
         .logo-header.visible { display: block; }
         .logo-header h1 { font-size: 36px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Blur effect when modal is open */
-        body.modal-open .hero,
-        body.modal-open .logo-header,
-        body.modal-open .roadmaps,
-        body.modal-open .roadmap-view,
-        body.modal-open footer { filter: blur(8px); }
-        
         /* Roadmaps Grid */
-        .roadmaps { max-width: 1200px; margin: 60px auto; padding: 0 40px; display: none; transition: filter 0.3s; }
+        .roadmaps { max-width: 1200px; margin: 60px auto; padding: 0 40px; display: none; }
         .roadmaps.active { display: block; }
         .section-title { font-size: 32px; margin-bottom: 30px; text-align: center; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
@@ -42,7 +35,7 @@
         .card-desc { font-size: 14px; color: #a0aec0; line-height: 1.5; }
         
         /* Roadmap View */
-        .roadmap-view { width: 100%; min-height: 100vh; padding: 40px; display: none; background: #0f1419; overflow-x: auto; transition: filter 0.3s; }
+        .roadmap-view { width: 100%; min-height: 100vh; padding: 40px; display: none; background: #0f1419; overflow-x: auto; }
         .roadmap-view.active { display: block; }
         .back-btn { background: #1a1f2e; color: #fff; border: 1px solid #2d3748; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-bottom: 30px; font-size: 16px; }
         .back-btn:hover { border-color: #667eea; }
@@ -57,19 +50,30 @@
         svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .roadmap-box { z-index: 1; }
         
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
-        .modal.active { display: flex; }
-        .modal-content { background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 30px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .modal-title { font-size: 24px; color: #58a6ff; }
-        .close-btn { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; }
-        .close-btn:hover { color: #f5576c; }
-        .modal-body ul { margin-left: 20px; }
-        .modal-body li { margin: 12px 0; color: #c9d1d9; line-height: 1.6; }
+        /* Popup Box */
+        .popup-box { position: absolute; display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 400px; max-height: 500px; overflow-y: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); z-index: 100; }
+        .popup-box.active { display: block; }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px; }
+        .popup-title { font-size: 20px; color: #58a6ff; font-weight: bold; flex-shrink: 0; }
+        .popup-actions { display: flex; gap: 8px; align-items: center; }
+        .popup-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 0; line-height: 1; }
+        .popup-close:hover { color: #f5576c; }
+        .popup-body ul { margin-left: 20px; }
+        .popup-body li { margin: 10px 0; color: #c9d1d9; line-height: 1.5; font-size: 13px; }
+        
+        /* Progress Buttons */
+        .progress-btn { padding: 6px 10px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; }
+        .progress-btn::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+        .progress-btn.done { background: #1a3a1a; color: #4ade80; border: 1px solid #4ade80; }
+        .progress-btn.done::before { background: #4ade80; }
+        .progress-btn.in-progress { background: #3a3a1a; color: #fbbf24; border: 1px solid #fbbf24; }
+        .progress-btn.in-progress::before { background: #fbbf24; }
+        .progress-btn.skip { background: #1a1a1a; color: #6b7280; border: 1px solid #6b7280; }
+        .progress-btn.skip::before { background: #6b7280; }
+        .progress-btn:hover { transform: translateY(-1px); }
         
         /* Footer */
-        footer { background: #1a1f2e; padding: 40px; text-align: center; margin-top: 80px; border-top: 1px solid #2d3748; transition: filter 0.3s; }
+        footer { background: #1a1f2e; padding: 40px; text-align: center; margin-top: 80px; border-top: 1px solid #2d3748; }
         footer p { color: #a0aec0; font-size: 14px; }
     </style>
 </head>
@@ -189,24 +193,27 @@
             
             <!-- Additional topics -->
             <div class="roadmap-box" style="top: 270px; left: 200px;">Indus Valley</div>
-            <div class="roadmap-box" style="top: 270px; left: 950px;" onclick="showModal('ancient-china')">Ancient China</div>
+            <div class="roadmap-box" style="top: 270px; left: 950px;" onclick="showPopup(event, 'ancient-china')">Ancient China</div>
             <div class="roadmap-box" style="top: 630px; left: 200px;">Persian Empire</div>
             <div class="roadmap-box" style="top: 630px; left: 950px;">Byzantine Era</div>
+            
+            <!-- Popup Box -->
+            <div class="popup-box" id="popup-box">
+                <div class="popup-header">
+                    <h3 class="popup-title" id="popup-title">Topic Title</h3>
+                    <div class="popup-actions">
+                        <button class="progress-btn done" onclick="setProgress('done')">Done</button>
+                        <button class="progress-btn in-progress" onclick="setProgress('in-progress')">In Progress</button>
+                        <button class="progress-btn skip" onclick="setProgress('skip')">Skip</button>
+                        <button class="popup-close" onclick="closePopup()">&times;</button>
+                    </div>
+                </div>
+                <div class="popup-body" id="popup-body">
+                    <!-- Content will be inserted here -->
+                </div>
+            </div>
         </div>
     </section>
-
-    <!-- Modal -->
-    <div class="modal" id="topic-modal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Topic Title</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="modal-body">
-                <!-- Content will be inserted here -->
-            </div>
-        </div>
-    </div>
 
     <footer>
         <p>© 2024 Developer Roadmaps. Community driven learning paths.</p>
@@ -272,24 +279,45 @@
             document.getElementById('his').classList.add('active');
         }
 
-        function showModal(topicId) {
-            const modal = document.getElementById('topic-modal');
+        function showPopup(event, topicId) {
+            event.stopPropagation();
+            const popup = document.getElementById('popup-box');
             const data = topicData[topicId];
             
             if (data) {
-                document.getElementById('modal-title').textContent = data.title;
-                document.getElementById('modal-body').innerHTML = data.content;
-                modal.classList.add('active');
-                document.body.classList.add('modal-open');
+                document.getElementById('popup-title').textContent = data.title;
+                document.getElementById('popup-body').innerHTML = data.content;
+                
+                const box = event.target;
+                const rect = box.getBoundingClientRect();
+                const canvas = document.querySelector('.roadmap-canvas');
+                const canvasRect = canvas.getBoundingClientRect();
+                
+                // Position popup to the right of the clicked box
+                popup.style.left = (rect.right - canvasRect.left + 20) + 'px';
+                popup.style.top = (rect.top - canvasRect.top) + 'px';
+                
+                popup.classList.add('active');
             }
         }
 
-        function closeModal(event) {
-            if (!event || event.target.id === 'topic-modal') {
-                document.getElementById('topic-modal').classList.remove('active');
-                document.body.classList.remove('modal-open');
-            }
+        function closePopup() {
+            document.getElementById('popup-box').classList.remove('active');
         }
+
+        function setProgress(status) {
+            console.log('Progress set to:', status);
+            // You can add logic here to save the progress status
+            closePopup();
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            const popup = document.getElementById('popup-box');
+            if (popup.classList.contains('active') && !popup.contains(event.target)) {
+                closePopup();
+            }
+        });
     </script>
 </body>
 </html>
