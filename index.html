@@ -6,47 +6,47 @@
     <title>Revision Bhai</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #0f1419; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #0a0e1a; color: #e8edf5; min-height: 100vh; display: flex; flex-direction: column; }
         
         /* Main content wrapper */
-        .main-content { flex: 1; }
+        .main-content { flex: 1; background: radial-gradient(ellipse at 20% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 50%); }
         
         /* Hero Section */
         .hero { text-align: center; padding: 120px 20px; max-width: 1200px; margin: 0 auto; }
         .hero.hidden { display: none; }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 20px; color: #a0aec0; margin-bottom: 40px; line-height: 1.6; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 20px; color: #8b95a8; margin-bottom: 40px; line-height: 1.6; }
         .cta-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1400px; margin: 0 auto; }
-        .btn { padding: 40px 50px; border-radius: 16px; text-decoration: none; font-weight: 700; font-size: 24px; transition: all 0.3s; cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3); }
-        .btn:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5); }
-        .btn.active { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); box-shadow: 0 0 0 4px rgba(245, 87, 108, 0.5); }
+        .btn { padding: 40px 50px; border-radius: 18px; text-decoration: none; font-weight: 700; font-size: 24px; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); color: #fff; border: none; box-shadow: 0 8px 25px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255,255,255,0.1); letter-spacing: 0.5px; }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(14, 165, 233, 0.4); }
+        .btn.active { background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.4), 0 8px 25px rgba(245, 158, 11, 0.3); }
         
         /* Roadmaps Grid */
         .roadmaps { max-width: 1200px; margin: 60px auto; padding: 0 40px; display: none; }
-        .roadmaps.active { display: block; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 20px; padding: 30px 40px; box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2); }
+        .roadmaps.active { display: block; background: rgba(14, 165, 233, 0.04); border: 1px solid rgba(14, 165, 233, 0.15); border-radius: 24px; padding: 30px 40px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); }
         .section-title { font-size: 24px; margin-bottom: 10px; text-align: center; display: none; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
-        .card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; transition: all 0.3s; cursor: pointer; }
-        .card:hover { transform: translateY(-4px); border-color: #667eea; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        .card { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.12); border-radius: 16px; padding: 24px; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; backdrop-filter: blur(8px); }
+        .card:hover { transform: translateY(-6px); border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 12px 35px rgba(14, 165, 233, 0.15), 0 0 0 1px rgba(56, 189, 248, 0.1); }
         .card-icon { font-size: 32px; margin-bottom: 16px; }
-        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #fff; }
-        .card-desc { font-size: 14px; color: #a0aec0; line-height: 1.5; }
+        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #f1f5f9; }
+        .card-desc { font-size: 14px; color: #8b95a8; line-height: 1.5; }
         
         /* Roadmap View */
-        .roadmap-view { width: 100%; min-height: 100vh; padding: 10px 20px; display: none; background: #0f1419; overflow: hidden; position: relative; }
+        .roadmap-view { width: 100%; min-height: 100vh; padding: 10px 20px; display: none; background: #0a0e1a; overflow: hidden; position: relative; }
         .roadmap-view.active { display: block; }
-        .back-btn { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: #fff; border: 2px solid #f5576c; padding: 12px 24px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4); transition: all 0.3s; }
-        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(245, 87, 108, 0.6); }
+        .back-btn { background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); color: #fff; border: none; padding: 12px 24px; border-radius: 12px; cursor: pointer; margin-bottom: 10px; font-size: 16px; font-weight: 700; box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35); transition: all 0.3s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245, 158, 11, 0.5); }
         
         .roadmap-container { width: 100%; height: calc(100vh - 100px); overflow: auto; position: relative; }
         .roadmap-canvas { position: relative; width: 1400px; min-height: 1200px; margin: 0 auto; transform-origin: 0 0; transition: transform 0.3s ease; }
         
-        .roadmap-box { position: absolute; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 8px; padding: 15px 20px; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer; transition: all 0.3s; text-align: center; min-width: 150px; }
-        .roadmap-box:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(88, 166, 255, 0.4); background: #2d3748; }
-        .roadmap-box.start { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #764ba2; }
-        .roadmap-box.important { border-color: #f5576c; background: #2d1f2e; }
-        .roadmap-box.status-done { background: #1a3a1a !important; border-color: #4ade80 !important; }
-        .roadmap-box.status-in-progress { background: #3a3a1a !important; border-color: #fbbf24 !important; }
+        .roadmap-box { position: absolute; background: rgba(15, 23, 42, 0.85); border: 2px solid #38bdf8; border-radius: 12px; padding: 15px 20px; font-size: 14px; font-weight: 600; color: #e8edf5; cursor: pointer; transition: all 0.3s; text-align: center; min-width: 150px; backdrop-filter: blur(8px); }
+        .roadmap-box:hover { transform: scale(1.07); box-shadow: 0 6px 24px rgba(56, 189, 248, 0.35); background: rgba(30, 41, 59, 0.9); }
+        .roadmap-box.start { background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); border-color: #8b5cf6; }
+        .roadmap-box.important { border-color: #f59e0b; background: rgba(30, 20, 10, 0.8); }
+        .roadmap-box.status-done { background: rgba(16, 50, 30, 0.85) !important; border-color: #34d399 !important; }
+        .roadmap-box.status-in-progress { background: rgba(50, 40, 10, 0.85) !important; border-color: #fbbf24 !important; }
 
         
         svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
@@ -54,103 +54,102 @@
         .roadmap-box { z-index: 1; }
         
         /* Popup Overlay */
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; z-index: 99; opacity: 0; transition: opacity 0.3s ease; }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); display: none; z-index: 99; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
         .popup-overlay.active { display: block; opacity: 1; }
         
         /* Popup Box */
-        .popup-box { position: fixed; top: 50vh; left: 50vw; transform: translate(-50%, -50%) scale(0.8); display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 600px; max-width: 90vw; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); z-index: 100; opacity: 0; transition: all 0.3s ease; }
+        .popup-box { position: fixed; top: 50vh; left: 50vw; transform: translate(-50%, -50%) scale(0.8); display: none; background: linear-gradient(145deg, #111827 0%, #0f172a 100%); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 24px; width: 600px; max-width: 90vw; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(14, 165, 233, 0.08); z-index: 100; opacity: 0; transition: all 0.3s ease; }
         .popup-box.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px; }
-        .popup-title { font-size: 20px; color: #58a6ff; font-weight: bold; flex: 1; }
+        .popup-title { font-size: 20px; color: #38bdf8; font-weight: bold; flex: 1; }
         .popup-actions { display: flex; gap: 8px; align-items: center; }
         .popup-body ul { margin-left: 0; list-style: none; padding: 0; }
-        .popup-body li { margin: 10px 0; color: #c9d1d9; line-height: 1.5; font-size: 13px; display: flex; align-items: flex-start; gap: 10px; word-wrap: break-word; }
-        .popup-body li input[type="checkbox"] { margin-top: 3px; cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; }
+        .popup-body li { margin: 10px 0; color: #b0bac9; line-height: 1.5; font-size: 13px; display: flex; align-items: flex-start; gap: 10px; word-wrap: break-word; }
+        .popup-body li input[type="checkbox"] { margin-top: 3px; cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; accent-color: #34d399; }
         .popup-body li span { flex: 1; }
-        .popup-body li.checked span { color: #4ade80; }
+        .popup-body li.checked span { color: #34d399; }
         
         /* Progress Counter */
-        .progress-counter { position: fixed; top: 20px; right: 40px; display: none; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 15px 20px; z-index: 50; transition: all 0.3s ease; }
+        .progress-counter { position: fixed; top: 20px; right: 40px; display: none; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 14px; padding: 15px 20px; z-index: 50; transition: all 0.3s ease; backdrop-filter: blur(12px); }
         .progress-counter.active { display: block; }
         .progress-counter.pulse { animation: pulse 0.5s ease; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(88, 166, 255, 0.6); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 25px rgba(56, 189, 248, 0.4); } }
         .counter-item { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 14px; font-weight: 600; }
         .counter-item .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .counter-item.done-counter .dot { background: #4ade80; }
-        .counter-item.done-counter { color: #4ade80; }
+        .counter-item.done-counter .dot { background: #34d399; }
+        .counter-item.done-counter { color: #34d399; }
         .counter-item.in-progress-counter .dot { background: #fbbf24; }
         .counter-item.in-progress-counter { color: #fbbf24; }
 
         .counter-item.inactive { color: #4a5568; }
         .counter-item.inactive .dot { background: #4a5568; }
-        .reset-btn { margin-top: 10px; padding: 6px 12px; background: #dc2626; color: #fff; border: 1px solid #ef4444; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; float: right; }
-        .reset-btn:hover { background: #b91c1c; transform: translateY(-1px); }
+        .reset-btn { margin-top: 10px; padding: 6px 12px; background: rgba(220, 38, 38, 0.8); color: #fff; border: 1px solid #ef4444; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; float: right; }
+        .reset-btn:hover { background: #dc2626; transform: translateY(-1px); }
         
         /* Zoom Controls */
         .zoom-controls { position: fixed; bottom: 40px; left: 40px; display: none; flex-direction: column; gap: 10px; z-index: 50; }
         .zoom-controls.active { display: flex; }
-        .zoom-btn { background: #1a1f2e; color: #fff; border: 2px solid #58a6ff; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; transition: all 0.3s; }
-        .zoom-btn:hover { background: #2d3748; border-color: #667eea; transform: scale(1.05); }
+        .zoom-btn { background: rgba(15, 23, 42, 0.9); color: #e8edf5; border: 1px solid rgba(56, 189, 248, 0.25); padding: 12px 16px; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: 600; transition: all 0.3s; backdrop-filter: blur(8px); }
+        .zoom-btn:hover { background: rgba(30, 41, 59, 0.9); border-color: #38bdf8; transform: scale(1.08); }
         
         /* Progress Buttons */
-        .progress-btn { padding: 6px 10px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; }
+        .progress-btn { padding: 6px 10px; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; }
         .progress-btn::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
-        .progress-btn.done { background: #1a3a1a; color: #4ade80; border: 1px solid #4ade80; }
-        .progress-btn.done::before { background: #4ade80; }
-        .progress-btn.in-progress { background: #3a3a1a; color: #fbbf24; border: 1px solid #fbbf24; }
+        .progress-btn.done { background: rgba(16, 50, 30, 0.8); color: #34d399; border: 1px solid #34d399; }
+        .progress-btn.done::before { background: #34d399; }
+        .progress-btn.in-progress { background: rgba(50, 40, 10, 0.8); color: #fbbf24; border: 1px solid #fbbf24; }
         .progress-btn.in-progress::before { background: #fbbf24; }
         .progress-btn:hover { transform: translateY(-1px); }
         .progress-btn.btn-disabled { opacity: 0.5; }
         
         /* Feedback Widget */
         .feedback-widget { position: fixed; bottom: 60px; right: 40px; z-index: 50; }
-        .feedback-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 14px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
-        .feedback-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6); }
-        .feedback-form { position: absolute; bottom: 60px; right: 0; background: #1a1f2e; border: 2px solid #58a6ff; border-radius: 12px; padding: 20px; width: 350px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8); display: none; }
+        .feedback-btn { background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); color: #fff; border: none; padding: 14px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35); transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+        .feedback-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(14, 165, 233, 0.5); }
+        .feedback-form { position: absolute; bottom: 60px; right: 0; background: linear-gradient(145deg, #111827 0%, #0f172a 100%); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 20px; width: 350px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7); display: none; backdrop-filter: blur(12px); }
         .feedback-form.active { display: block; }
-        .feedback-form h3 { color: #58a6ff; margin-bottom: 15px; font-size: 18px; }
+        .feedback-form h3 { color: #38bdf8; margin-bottom: 15px; font-size: 18px; }
         .feedback-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .category-btn { background: #2d3748; color: #fff; border: 2px solid #2d3748; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; }
-        .category-btn:hover { background: #3d4758; }
-        .category-btn.selected { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea; }
-        .feedback-form textarea { width: 100%; min-height: 120px; background: #0f1419; border: 1px solid #2d3748; border-radius: 8px; padding: 12px; color: #fff; font-size: 14px; font-family: inherit; resize: vertical; display: none; }
+        .category-btn { background: rgba(30, 41, 59, 0.7); color: #c4cdd9; border: 1px solid rgba(56, 189, 248, 0.1); padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .category-btn:hover { background: rgba(30, 41, 59, 0.9); border-color: rgba(56, 189, 248, 0.3); }
+        .category-btn.selected { background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); border-color: transparent; color: #fff; }
+        .feedback-form textarea { width: 100%; min-height: 120px; background: rgba(10, 14, 26, 0.8); border: 1px solid rgba(56, 189, 248, 0.12); border-radius: 10px; padding: 12px; color: #e8edf5; font-size: 14px; font-family: inherit; resize: vertical; display: none; }
         .feedback-form textarea.active { display: block; }
-        .feedback-form textarea:focus { outline: none; border-color: #58a6ff; }
+        .feedback-form textarea:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
         .feedback-actions { display: none; gap: 10px; margin-top: 15px; }
         .feedback-actions.active { display: flex; }
-        .feedback-submit { flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .feedback-submit:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
-        .feedback-cancel { flex: 1; background: #2d3748; color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .feedback-cancel:hover { background: #3d4758; }
+        .feedback-submit { flex: 1; background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); color: #fff; border: none; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .feedback-submit:hover { transform: translateY(-2px); box-shadow: 0 4px 18px rgba(14, 165, 233, 0.4); }
+        .feedback-cancel { flex: 1; background: rgba(30, 41, 59, 0.7); color: #c4cdd9; border: 1px solid rgba(56, 189, 248, 0.1); padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .feedback-cancel:hover { background: rgba(30, 41, 59, 0.9); }
         
         /* Header */
-        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 60px; border-bottom: 3px solid #764ba2; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); display: flex; align-items: center; justify-content: space-between; }
+        header { background: linear-gradient(135deg, #0c4a6e 0%, #581c87 50%, #831843 100%); padding: 20px 60px; border-bottom: none; box-shadow: 0 4px 30px rgba(14, 165, 233, 0.15), 0 1px 0 rgba(255,255,255,0.05) inset; display: flex; align-items: center; justify-content: space-between; }
         .header-left { display: flex; align-items: center; gap: 20px; }
-        .logo { width: 50px; height: 50px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #667eea; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .logo { width: 50px; height: 50px; background: linear-gradient(135deg, #38bdf8, #a78bfa); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.3); }
         .header-content { }
-        header h1 { font-size: 32px; font-weight: 700; color: #fff; margin: 0; }
-        header p { color: #e0e7ff; font-size: 14px; font-weight: 400; margin: 5px 0 0 0; }
+        header h1 { font-size: 32px; font-weight: 700; color: #fff; margin: 0; letter-spacing: -0.5px; }
+        header p { color: rgba(224, 231, 255, 0.7); font-size: 14px; font-weight: 400; margin: 5px 0 0 0; }
         .header-right { display: flex; align-items: center; gap: 15px; }
-        .youtube-link { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
-        .youtube-link:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4); }
-        .login-btn { padding: 10px 24px; background: rgba(255, 255, 255, 0.2); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
-        .login-btn:hover { background: #fff; color: #667eea; transform: translateY(-2px); }
+        .youtube-link { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #dc2626; color: #fff; text-decoration: none; border-radius: 10px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
+        .youtube-link:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4); background: #ef4444; }
+        .login-btn { padding: 10px 24px; background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+        .login-btn:hover { background: rgba(255, 255, 255, 0.95); color: #0c4a6e; transform: translateY(-2px); }
         .login-btn svg { flex-shrink: 0; }
         
         /* Footer */
-        footer { background: #1a1f2e; padding: 40px; text-align: center; border-top: 1px solid #2d3748; margin-top: auto; }
-        footer p { color: #a0aec0; font-size: 14px; }
+        footer { background: rgba(15, 23, 42, 0.8); padding: 40px; text-align: center; border-top: 1px solid rgba(56, 189, 248, 0.08); margin-top: auto; }
+        footer p { color: #6b7a8d; font-size: 14px; }
         
         /* User Profile */
         .user-profile { display: flex; align-items: center; gap: 10px; }
-        .user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); }
         .user-name { font-size: 14px; font-weight: 600; color: #fff; }
-        .logout-btn { padding: 8px 16px; background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid #fff; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .logout-btn:hover { background: #fff; color: #667eea; }
+        .logout-btn { padding: 8px 16px; background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .logout-btn:hover { background: rgba(255,255,255,0.95); color: #0c4a6e; }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            /* Header */
             header { padding: 15px 20px; flex-direction: column; gap: 15px; }
             .header-left { flex-direction: column; gap: 10px; text-align: center; }
             .logo { width: 40px; height: 40px; font-size: 22px; }
@@ -160,51 +159,34 @@
             .youtube-link { width: 100%; justify-content: center; }
             .login-btn { width: 100%; justify-content: center; }
             .user-profile { width: 100%; justify-content: center; flex-wrap: wrap; }
-            
-            /* Hero Section */
             .hero { padding: 60px 15px; }
             .hero h1 { font-size: 32px; }
             .hero p { font-size: 16px; }
             .cta-buttons { grid-template-columns: 1fr 1fr; gap: 15px; }
             .btn { padding: 25px 20px; font-size: 18px; }
-            
-            /* Roadmaps Grid */
             .roadmaps { padding: 0 20px; }
             .roadmaps.active { padding: 20px; }
             .grid { grid-template-columns: 1fr; gap: 16px; }
-            
-            /* Roadmap View */
             .roadmap-view { padding: 10px; }
             .back-btn { font-size: 14px; padding: 10px 18px; }
             .roadmap-container { height: calc(100vh - 80px); }
             .roadmap-canvas { width: 1400px; min-height: 1200px; }
-            
-            /* Progress Counter */
             .progress-counter { top: 10px; right: 10px; padding: 10px 15px; font-size: 12px; }
             .counter-item { font-size: 12px; margin: 5px 0; }
             .reset-btn { font-size: 10px; padding: 5px 10px; }
-            
-            /* Zoom Controls */
             .zoom-controls { bottom: 20px; left: 10px; gap: 8px; }
             .zoom-btn { padding: 10px 12px; font-size: 16px; }
-            
-            /* Feedback Widget */
             .feedback-widget { bottom: 20px; right: 10px; }
             .feedback-btn { padding: 12px 16px; font-size: 13px; }
             .feedback-form { width: 90vw; max-width: 320px; right: -10px; }
-            
-            /* Popup */
             .popup-box { width: 95vw; padding: 15px; }
             .popup-title { font-size: 18px; }
             .popup-body li { font-size: 12px; }
             .progress-btn { font-size: 10px; padding: 5px 8px; }
-            
-            /* Custom Alert */
             .custom-alert { min-width: 90vw !important; padding: 20px 25px !important; }
         }
         
         @media (max-width: 480px) {
-            /* Extra small screens */
             .cta-buttons { grid-template-columns: 1fr; }
             .btn { padding: 20px 15px; font-size: 16px; }
             header h1 { font-size: 20px; }
@@ -212,6 +194,11 @@
             .feedback-categories { grid-template-columns: 1fr; }
         }
     </style>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -293,17 +280,17 @@
 
         <section class="roadmaps" id="Geography">
             <h2 class="section-title">Geography Content</h2>
-            <p style="text-align: center; color: #a0aec0;">Geography content will go here</p>
+            <p style="text-align: center; color: #8b95a8;">Geography content will go here</p>
         </section>
 
         <section class="roadmaps" id="Economy">
             <h2 class="section-title">Economy Content</h2>
-            <p style="text-align: center; color: #a0aec0;">Economy content will go here</p>
+            <p style="text-align: center; color: #8b95a8;">Economy content will go here</p>
         </section>
 
         <section class="roadmaps" id="Polity">
             <h2 class="section-title">Polity Content</h2>
-            <p style="text-align: center; color: #a0aec0;">Polity content will go here</p>
+            <p style="text-align: center; color: #8b95a8;">Polity content will go here</p>
         </section>
 
         <!-- Chap-1 Roadmap View -->
@@ -334,16 +321,16 @@
             <div class="roadmap-container" id="roadmap-container">
             <div class="roadmap-canvas" id="roadmap-canvas">
                 <svg>
-                    <line x1="700" y1="80" x2="700" y2="150" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="700" y1="200" x2="500" y2="270" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="700" y1="200" x2="900" y2="270" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="500" y1="320" x2="500" y2="390" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="900" y1="320" x2="900" y2="390" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="500" y1="440" x2="700" y2="510" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="900" y1="440" x2="700" y2="510" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="700" y1="560" x2="700" y2="630" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="700" y1="680" x2="500" y2="750" stroke="#58a6ff" stroke-width="2"/>
-                    <line x1="700" y1="680" x2="900" y2="750" stroke="#58a6ff" stroke-width="2"/>
+                    <line x1="700" y1="80" x2="700" y2="150" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="700" y1="200" x2="500" y2="270" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="700" y1="200" x2="900" y2="270" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="500" y1="320" x2="500" y2="390" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="900" y1="320" x2="900" y2="390" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="500" y1="440" x2="700" y2="510" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="900" y1="440" x2="700" y2="510" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="700" y1="560" x2="700" y2="630" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="700" y1="680" x2="500" y2="750" stroke="#38bdf8" stroke-width="2"/>
+                    <line x1="700" y1="680" x2="900" y2="750" stroke="#38bdf8" stroke-width="2"/>
                 </svg>
                 
                 <!-- Introduction -->
@@ -639,7 +626,7 @@
             currentPopupId = null;
         }
 
-function checkAndSetProgress(status) {
+        function checkAndSetProgress(status) {
             if (!currentUser) {
                 showCustomAlert('Please <strong>Login</strong> to save your progress!', true);
                 return;
@@ -649,15 +636,15 @@ function checkAndSetProgress(status) {
 
         function showCustomAlert(message, showLogin = false) {
             const alertBox = document.createElement('div');
-            alertBox.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%); border: 2px solid #58a6ff; border-radius: 16px; padding: 30px 40px; z-index: 200; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9); min-width: 400px; text-align: center;';
+            alertBox.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(145deg, #111827 0%, #0f172a 100%); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 20px; padding: 30px 40px; z-index: 200; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 165, 233, 0.08); min-width: 400px; text-align: center;';
             const buttons = showLogin ? `
-                <button onclick="event.stopPropagation(); this.parentElement.remove(); handleLogin();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); margin-right: 10px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">Sign In</button>
-                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: #2d3748; color: #fff; border: 1px solid #58a6ff; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#3d4758'" onmouseout="this.style.background='#2d3748'">Cancel</button>
+                <button onclick="event.stopPropagation(); this.parentElement.remove(); handleLogin();" style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.35); margin-right: 10px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 28px rgba(14, 165, 233, 0.5)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 18px rgba(14, 165, 233, 0.35)'">Sign In</button>
+                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: rgba(30, 41, 59, 0.7); color: #c4cdd9; border: 1px solid rgba(56, 189, 248, 0.2); padding: 12px 30px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(30, 41, 59, 0.9)'" onmouseout="this.style.background='rgba(30, 41, 59, 0.7)'">Cancel</button>
             ` : `
-                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">OK</button>
+                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.35);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 28px rgba(14, 165, 233, 0.5)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 18px rgba(14, 165, 233, 0.35)'">OK</button>
             `;
             alertBox.innerHTML = `
-                <div style="font-size: 18px; color: #fff; margin-bottom: 20px; line-height: 1.6;">${message}</div>
+                <div style="font-size: 18px; color: #e8edf5; margin-bottom: 20px; line-height: 1.6;">${message}</div>
                 ${buttons}
             `;
             document.body.appendChild(alertBox);
