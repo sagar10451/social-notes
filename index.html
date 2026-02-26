@@ -524,6 +524,18 @@
                 
                 document.getElementById('popup-body').innerHTML = tempDiv.innerHTML;
                 
+                // Restore checkbox states if saved
+                const savedStates = event.target.dataset.checkboxStates;
+                if (savedStates) {
+                    const states = JSON.parse(savedStates);
+                    document.querySelectorAll('#popup-body input[type="checkbox"]').forEach((cb, index) => {
+                        if (states[index]) {
+                            cb.checked = true;
+                            cb.parentElement.classList.add('checked');
+                        }
+                    });
+                }
+                
                 // Add event listeners after DOM insertion
                 document.querySelectorAll('#popup-body input[type="checkbox"]').forEach(cb => {
                     cb.addEventListener('change', function() {
@@ -532,12 +544,8 @@
                         } else {
                             this.parentElement.classList.remove('checked');
                         }
-                        updateDoneButton();
                     });
                 });
-                
-                const doneBtn = document.getElementById('done-btn');
-                doneBtn.classList.add('btn-disabled');
                 
                 overlay.classList.add('active');
                 setTimeout(() => {
@@ -554,26 +562,9 @@
             currentPopupId = null;
         }
 
-        function updateDoneButton() {
-            const checkboxes = document.querySelectorAll('#popup-body input[type="checkbox"]');
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-            const doneBtn = document.getElementById('done-btn');
-            if (allChecked) {
-                doneBtn.classList.remove('btn-disabled');
-            } else {
-                doneBtn.classList.add('btn-disabled');
-            }
-        }
-
-        function checkAndSetProgress(status) {
+function checkAndSetProgress(status) {
             if (!currentUser) {
                 showCustomAlert('Please <strong>Login</strong> to save your progress!', true);
-                return;
-            }
-            const checkboxes = document.querySelectorAll('#popup-body input[type="checkbox"]');
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-            if (!allChecked) {
-                showCustomAlert('Please go through all the points to mark as <strong>Done</strong>');
                 return;
             }
             setProgress(status);
@@ -635,6 +626,12 @@
                 return;
             }
             if (currentPopupId) {
+                // Save checkbox states
+                const checkboxStates = [];
+                document.querySelectorAll('#popup-body input[type="checkbox"]').forEach((cb, index) => {
+                    checkboxStates.push(cb.checked);
+                });
+                
                 const boxes = document.querySelectorAll('.roadmap-box');
                 boxes.forEach(box => {
                     if (box.onclick && box.onclick.toString().includes(currentPopupId)) {
@@ -648,6 +645,7 @@
                         
                         box.classList.remove('status-done', 'status-in-progress');
                         box.classList.add(`status-${status}`);
+                        box.dataset.checkboxStates = JSON.stringify(checkboxStates);
                         
                         progressCounts[status]++;
                         
@@ -675,8 +673,11 @@
             const topicStatuses = {};
             document.querySelectorAll('.roadmap-box').forEach(box => {
                 const text = box.textContent.trim();
-                if (box.classList.contains('status-done')) topicStatuses[text] = 'done';
-                else if (box.classList.contains('status-in-progress')) topicStatuses[text] = 'in-progress';
+                if (box.classList.contains('status-done')) {
+                    topicStatuses[text] = { status: 'done', checkboxStates: box.dataset.checkboxStates || '[]' };
+                } else if (box.classList.contains('status-in-progress')) {
+                    topicStatuses[text] = { status: 'in-progress', checkboxStates: box.dataset.checkboxStates || '[]' };
+                }
             });
             
             // Save to Firebase only
@@ -697,9 +698,12 @@
                     document.querySelectorAll('.roadmap-box').forEach(box => {
                         box.classList.remove('status-done', 'status-in-progress');
                         const text = box.textContent.trim();
-                        const status = topicStatuses[text];
-                        if (status) {
+                        const topicData = topicStatuses[text];
+                        if (topicData) {
+                            const status = typeof topicData === 'string' ? topicData : topicData.status;
+                            const checkboxStates = typeof topicData === 'object' ? topicData.checkboxStates : '[]';
                             box.classList.add(`status-${status}`);
+                            box.dataset.checkboxStates = checkboxStates;
                             progressCounts[status]++;
                         }
                     });
