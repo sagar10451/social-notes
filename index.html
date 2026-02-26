@@ -479,7 +479,8 @@
 
         function showRoadmap(chapId) {
             document.getElementById('hero-section').classList.add('hidden');
-            document.querySelector('header').style.display = 'none';
+            document.querySelector('header').style.visibility = 'hidden';
+            document.querySelector('header').style.position = 'absolute';
             document.getElementById('zoom-controls').classList.add('active');
             document.getElementById('progress-counter').classList.add('active');
             
@@ -494,7 +495,8 @@
 
         function backToChapters() {
             document.getElementById('hero-section').classList.remove('hidden');
-            document.querySelector('header').style.display = 'block';
+            document.querySelector('header').style.visibility = 'visible';
+            document.querySelector('header').style.position = 'static';
             document.getElementById('zoom-controls').classList.remove('active');
             document.getElementById('progress-counter').classList.remove('active');
             
