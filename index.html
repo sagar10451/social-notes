@@ -22,13 +22,14 @@
         .btn.active { background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.4), 0 8px 25px rgba(245, 158, 11, 0.3); }
         
         /* Welcome Text */
-        .welcome-text { max-width: 750px; margin: 60px auto 0; opacity: 0; animation: welcomeFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
-        .welcome-text p { font-size: 22px; line-height: 1.8; font-weight: 500; color: transparent; background: linear-gradient(135deg, #94a3b8 0%, #e2e8f0 40%, #38bdf8 60%, #a78bfa 80%, #e2e8f0 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: welcomeShimmer 4s ease-in-out infinite 1.5s; letter-spacing: 0.2px; }
-        .welcome-text .highlight { font-weight: 700; background: linear-gradient(135deg, #38bdf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .welcome-text { max-width: 1100px; margin: 60px auto 0; padding: 0 20px; overflow: hidden; }
+        .welcome-text p { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1.2; font-weight: 400; letter-spacing: 3px; color: #e2e8f0; text-transform: uppercase; text-shadow: 0 0 30px rgba(56, 189, 248, 0.3); }
+        .welcome-text .c-amber { color: #fbbf24; text-transform: uppercase; }
+        .welcome-text .c-cyan { color: #22d3ee; text-transform: uppercase; }
+        .welcome-text .c-pink { color: #f472b6; text-transform: uppercase; }
+        .welcome-text .c-green { color: #34d399; text-transform: uppercase; }
         .welcome-text.fade-out { animation: welcomeFadeOut 0.4s ease forwards; }
-        @keyframes welcomeFadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes welcomeFadeOut { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-20px); } }
-        @keyframes welcomeShimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
         
         /* Roadmaps Grid */
         .roadmaps { max-width: 1200px; margin: 60px auto; padding: 0 40px; display: none; }
@@ -135,9 +136,10 @@
         /* Header */
         header { background: linear-gradient(135deg, #0c4a6e 0%, #581c87 50%, #831843 100%); padding: 20px 60px; border-bottom: none; box-shadow: 0 4px 30px rgba(14, 165, 233, 0.15), 0 1px 0 rgba(255,255,255,0.05) inset; display: flex; align-items: center; justify-content: space-between; }
         .header-left { display: flex; align-items: center; gap: 20px; }
-        .logo { width: 50px; height: 50px; background: linear-gradient(135deg, #38bdf8, #a78bfa); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.3); }
+        .logo { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(14, 165, 233, 0.3); overflow: hidden; }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
         .header-content { }
-        header h1 { font-size: 32px; font-weight: 700; color: #fff; margin: 0; letter-spacing: -0.5px; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: #fff; margin: 0; letter-spacing: 1px; }
         header p { color: rgba(224, 231, 255, 0.7); font-size: 14px; font-weight: 400; margin: 5px 0 0 0; }
         .header-right { display: flex; align-items: center; gap: 15px; }
         .youtube-link { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #dc2626; color: #fff; text-decoration: none; border-radius: 10px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
@@ -171,6 +173,8 @@
             .hero { padding: 60px 15px; }
             .hero h1 { font-size: 32px; }
             .hero p { font-size: 16px; }
+            .welcome-text p { font-size: 38px; letter-spacing: 2px; }
+            .welcome-text { margin: 30px auto 0; }
             .cta-buttons { grid-template-columns: 1fr 1fr; gap: 15px; }
             .btn { padding: 25px 20px; font-size: 18px; }
             .roadmaps { padding: 0 20px; }
@@ -201,13 +205,14 @@
             header h1 { font-size: 20px; }
             .hero h1 { font-size: 28px; }
             .feedback-categories { grid-template-columns: 1fr; }
+            .welcome-text p { font-size: 28px; letter-spacing: 1.5px; }
         }
     </style>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Bebas+Neue&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -217,10 +222,10 @@
 <body>
     <header>
         <div class="header-left">
-            <div class="logo">RB</div>
+            <div class="logo"><img src="https://drive.google.com/thumbnail?id=1HSzvXnwTjsamCm3Jw-7oG5sU-Klntc6N&sz=w200" alt="Revision Bhai Logo" onerror="this.parentElement.innerHTML='RB'; this.parentElement.style.background='linear-gradient(135deg, #38bdf8, #a78bfa)'; this.parentElement.style.fontSize='28px'; this.parentElement.style.fontWeight='800'; this.parentElement.style.color='#fff';"></div>
             <div class="header-content">
                 <h1>Revision Bhai</h1>
-                <p>Your comprehensive learning companion for exam preparation</p>
+                <p>We don't motivate — we teach</p>
             </div>
         </div>
         <div class="header-right">
@@ -250,7 +255,7 @@
                 <button class="btn" onclick="toggleTab('Polity', this)">Polity</button>
             </div>
             <div class="welcome-text" id="welcome-text">
-                <p>Welcome to <span class="highlight">Revision Bhai</span>, where you get a high-level view of chapters with flowcharts and learn faster.</p>
+                <p>Welcome to <span class="c-amber">REVISION BHAI</span>, where <span class="c-pink">FLOWCHARTS</span> give you a <span class="c-cyan">HIGH LEVEL</span> view of chapters for <span class="c-green">FASTER</span> learning</p>
             </div>
         </section>
 
@@ -397,7 +402,7 @@
     </div>
 
     <footer>
-        <p>© 2024 Developer Roadmaps. Community driven learning paths.</p>
+        <p>© 2026 Revision Bhai. Made with ❤️ for students.</p>
     </footer>
 
     <!-- Feedback Widget -->
@@ -886,6 +891,7 @@
                 }
             }
         });
+
     </script>
 </body>
 </html>
