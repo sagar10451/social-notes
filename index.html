@@ -147,6 +147,70 @@
         .user-name { font-size: 14px; font-weight: 600; color: #fff; }
         .logout-btn { padding: 8px 16px; background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid #fff; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .logout-btn:hover { background: #fff; color: #667eea; }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            /* Header */
+            header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .header-left { flex-direction: column; gap: 10px; text-align: center; }
+            .logo { width: 40px; height: 40px; font-size: 22px; }
+            header h1 { font-size: 24px; }
+            header p { font-size: 12px; }
+            .header-right { flex-direction: column; gap: 10px; width: 100%; }
+            .youtube-link { width: 100%; justify-content: center; }
+            .login-btn { width: 100%; justify-content: center; }
+            .user-profile { width: 100%; justify-content: center; flex-wrap: wrap; }
+            
+            /* Hero Section */
+            .hero { padding: 60px 15px; }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .cta-buttons { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .btn { padding: 25px 20px; font-size: 18px; }
+            
+            /* Roadmaps Grid */
+            .roadmaps { padding: 0 20px; }
+            .roadmaps.active { padding: 20px; }
+            .grid { grid-template-columns: 1fr; gap: 16px; }
+            
+            /* Roadmap View */
+            .roadmap-view { padding: 10px; }
+            .back-btn { font-size: 14px; padding: 10px 18px; }
+            .roadmap-container { height: calc(100vh - 80px); }
+            .roadmap-canvas { width: 1400px; min-height: 1200px; }
+            
+            /* Progress Counter */
+            .progress-counter { top: 10px; right: 10px; padding: 10px 15px; font-size: 12px; }
+            .counter-item { font-size: 12px; margin: 5px 0; }
+            .reset-btn { font-size: 10px; padding: 5px 10px; }
+            
+            /* Zoom Controls */
+            .zoom-controls { bottom: 20px; left: 10px; gap: 8px; }
+            .zoom-btn { padding: 10px 12px; font-size: 16px; }
+            
+            /* Feedback Widget */
+            .feedback-widget { bottom: 20px; right: 10px; }
+            .feedback-btn { padding: 12px 16px; font-size: 13px; }
+            .feedback-form { width: 90vw; max-width: 320px; right: -10px; }
+            
+            /* Popup */
+            .popup-box { width: 95vw; padding: 15px; }
+            .popup-title { font-size: 18px; }
+            .popup-body li { font-size: 12px; }
+            .progress-btn { font-size: 10px; padding: 5px 8px; }
+            
+            /* Custom Alert */
+            .custom-alert { min-width: 90vw !important; padding: 20px 25px !important; }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small screens */
+            .cta-buttons { grid-template-columns: 1fr; }
+            .btn { padding: 20px 15px; font-size: 16px; }
+            header h1 { font-size: 20px; }
+            .hero h1 { font-size: 28px; }
+            .feedback-categories { grid-template-columns: 1fr; }
+        }
     </style>
     
     <!-- Firebase SDK -->
