@@ -76,7 +76,7 @@
         .popup-body ul { margin-left: 0; list-style: none; padding: 0; }
         .popup-body li { margin: 10px 0; color: #b0bac9; line-height: 1.5; font-size: 13px; display: flex; align-items: flex-start; gap: 10px; word-wrap: break-word; }
         .popup-body li input[type="checkbox"] { margin-top: 3px; cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; accent-color: #34d399; }
-        .popup-body li span { flex: 1; }
+        .popup-body li span { flex: 1; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
         .popup-body li.checked span { color: #34d399; }
         
         /* Progress Counter */
@@ -889,6 +889,21 @@
                 if (!clickedOnBox) {
                     closePopup();
                 }
+            }
+        });
+
+        // Copy Protection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => { e.preventDefault(); showCustomAlert('⚠️ Content copying is disabled to protect our educational material.'); });
+        document.addEventListener('cut', e => { e.preventDefault(); showCustomAlert('⚠️ Content copying is disabled to protect our educational material.'); });
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 'a' || e.key === 'A' || e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+                if (e.key === 'c' || e.key === 'C') showCustomAlert('⚠️ Content copying is disabled to protect our educational material.');
+            }
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+                e.preventDefault();
+                showCustomAlert('⚠️ Developer tools are restricted.');
             }
         });
 
