@@ -412,8 +412,12 @@
                 progressCounts = { done: 0, 'in-progress': 0 };
                 document.querySelectorAll('.roadmap-box').forEach(box => {
                     box.classList.remove('status-done', 'status-in-progress');
+                    box.dataset.checkboxStates = '[]';
                 });
-                updateProgressCounter();
+                document.getElementById('done-count').textContent = '0';
+                document.getElementById('progress-count').textContent = '0';
+                document.querySelector('.done-counter').classList.add('inactive');
+                document.querySelector('.in-progress-counter').classList.add('inactive');
             } catch (error) {
                 showCustomAlert('Logout failed: ' + error.message);
             }
