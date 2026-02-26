@@ -138,7 +138,19 @@
         /* Footer */
         footer { background: #1a1f2e; padding: 40px; text-align: center; border-top: 1px solid #2d3748; margin-top: auto; }
         footer p { color: #a0aec0; font-size: 14px; }
+        
+        /* User Profile */
+        .user-profile { display: flex; align-items: center; gap: 10px; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff; }
+        .user-name { font-size: 14px; font-weight: 600; color: #fff; }
+        .logout-btn { padding: 8px 16px; background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid #fff; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .logout-btn:hover { background: #fff; color: #667eea; }
     </style>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <header>
@@ -154,7 +166,14 @@
                 <span>▶</span>
                 <span>YouTube</span>
             </a>
-            <button class="login-btn" onclick="alert('Login feature coming soon!')">Login</button>
+            <div id="user-section">
+                <button class="login-btn" id="login-btn" onclick="handleLogin()">Login with Google</button>
+                <div class="user-profile" id="user-profile" style="display: none;">
+                    <img class="user-avatar" id="user-avatar" src="" alt="User">
+                    <span class="user-name" id="user-name"></span>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
         </div>
     </header>
     <div class="main-content">
@@ -336,6 +355,64 @@
     </div>
 
     <script>
+        // Firebase Configuration - REPLACE WITH YOUR CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyAPtnjmxKdSYxfNOSgUHpLCCx4aSQb2HNs",
+            authDomain: "revision-bhai.firebaseapp.com",
+            projectId: "revision-bhai",
+            storageBucket: "revision-bhai.firebasestorage.app",
+            messagingSenderId: "458753739993",
+            appId: "1:458753739993:web:5f12045ffa748f050dc2c8",
+            measurementId: "G-YWQSBBJDN8"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        let currentUser = null;
+
+        // Auth State Observer
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('login-btn').style.display = 'none';
+                document.getElementById('user-profile').style.display = 'flex';
+                document.getElementById('user-avatar').src = user.photoURL || 'https://via.placeholder.com/36';
+                document.getElementById('user-name').textContent = user.displayName || user.email;
+                loadProgressFromFirebase();
+            } else {
+                currentUser = null;
+                document.getElementById('login-btn').style.display = 'block';
+                document.getElementById('user-profile').style.display = 'none';
+                loadProgressFromLocal();
+            }
+        });
+
+        // Login with Google
+        async function handleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                await auth.signInWithPopup(provider);
+            } catch (error) {
+                showCustomAlert('Login failed: ' + error.message);
+            }
+        }
+
+        // Logout
+        async function handleLogout() {
+            try {
+                await auth.signOut();
+                progressCounts = { done: 0, 'in-progress': 0 };
+                document.querySelectorAll('.roadmap-box').forEach(box => {
+                    box.classList.remove('status-done', 'status-in-progress');
+                });
+                updateProgressCounter();
+            } catch (error) {
+                showCustomAlert('Logout failed: ' + error.message);
+            }
+        }
+
         let currentZoom = 1;
         let currentPopupId = null;
         let progressCounts = { done: 0, 'in-progress': 0 };
@@ -584,14 +661,50 @@
                 if (box.classList.contains('status-done')) topicStatuses[text] = 'done';
                 else if (box.classList.contains('status-in-progress')) topicStatuses[text] = 'in-progress';
             });
-            localStorage.setItem('revisionBhaiProgress', JSON.stringify(topicStatuses));
+            
+            if (currentUser) {
+                // Save to Firebase
+                db.collection('users').doc(currentUser.uid).set({
+                    email: currentUser.email,
+                    progress: topicStatuses,
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }).catch(err => console.error('Firebase save error:', err));
+            } else {
+                // Save to localStorage
+                localStorage.setItem('revisionBhaiProgress', JSON.stringify(topicStatuses));
+            }
         }
 
-        function loadProgress() {
+        async function loadProgressFromFirebase() {
+            if (!currentUser) return;
+            try {
+                const doc = await db.collection('users').doc(currentUser.uid).get();
+                if (doc.exists && doc.data().progress) {
+                    const topicStatuses = doc.data().progress;
+                    progressCounts = { done: 0, 'in-progress': 0 };
+                    document.querySelectorAll('.roadmap-box').forEach(box => {
+                        box.classList.remove('status-done', 'status-in-progress');
+                        const text = box.textContent.trim();
+                        const status = topicStatuses[text];
+                        if (status) {
+                            box.classList.add(`status-${status}`);
+                            progressCounts[status]++;
+                        }
+                    });
+                    updateProgressCounter();
+                }
+            } catch (error) {
+                console.error('Firebase load error:', error);
+            }
+        }
+
+        function loadProgressFromLocal() {
             const saved = localStorage.getItem('revisionBhaiProgress');
             if (saved) {
                 const topicStatuses = JSON.parse(saved);
+                progressCounts = { done: 0, 'in-progress': 0 };
                 document.querySelectorAll('.roadmap-box').forEach(box => {
+                    box.classList.remove('status-done', 'status-in-progress');
                     const text = box.textContent.trim();
                     const status = topicStatuses[text];
                     if (status) {
@@ -603,8 +716,8 @@
             }
         }
 
-        // Load progress on page load
-        window.addEventListener('DOMContentLoaded', loadProgress);
+        // Load progress on page load - removed, handled by auth state observer
+        // window.addEventListener('DOMContentLoaded', loadProgress);
 
         // Feedback functions
         let selectedCategory = '';
@@ -642,7 +755,7 @@
             
             try {
                 // Replace with your Google Apps Script Web App URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbx-d6bTNuJjOjKzRghB7HZLmuFBuraiB7degqS8cZm-E2Or-Kn8sJ0tCyp7njZVoesDpQ/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbzb6X3IJ3Ka-V3WhQmNE0BWTB6XCCGOveqXiR8_urDLQNX4m20zfQ-540khW2mLBZZccw/exec';
                 
                 const response = await fetch(scriptUrl, {
                     method: 'POST',
