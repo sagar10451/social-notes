@@ -608,6 +608,8 @@
         }
 
         function updateProgressCounter() {
+            if (!currentUser) return;
+            
             document.getElementById('done-count').textContent = progressCounts.done;
             document.getElementById('progress-count').textContent = progressCounts['in-progress'];
             
