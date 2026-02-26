@@ -567,7 +567,7 @@
 
         function checkAndSetProgress(status) {
             if (!currentUser) {
-                showCustomAlert('Please <strong>Login</strong> to save your progress!');
+                showCustomAlert('Please <strong>Login</strong> to save your progress!', true);
                 return;
             }
             const checkboxes = document.querySelectorAll('#popup-body input[type="checkbox"]');
@@ -579,12 +579,18 @@
             setProgress(status);
         }
 
-        function showCustomAlert(message) {
+        function showCustomAlert(message, showLogin = false) {
             const alertBox = document.createElement('div');
             alertBox.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%); border: 2px solid #58a6ff; border-radius: 16px; padding: 30px 40px; z-index: 200; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9); min-width: 400px; text-align: center;';
+            const buttons = showLogin ? `
+                <button onclick="event.stopPropagation(); this.parentElement.remove(); handleLogin();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); margin-right: 10px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">Sign In</button>
+                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: #2d3748; color: #fff; border: 1px solid #58a6ff; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#3d4758'" onmouseout="this.style.background='#2d3748'">Cancel</button>
+            ` : `
+                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">OK</button>
+            `;
             alertBox.innerHTML = `
                 <div style="font-size: 18px; color: #fff; margin-bottom: 20px; line-height: 1.6;">${message}</div>
-                <button onclick="event.stopPropagation(); this.parentElement.remove();" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(102, 126, 234, 0.6)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)'">OK</button>
+                ${buttons}
             `;
             document.body.appendChild(alertBox);
         }
@@ -625,7 +631,7 @@
 
         function setProgress(status) {
             if (!currentUser) {
-                showCustomAlert('Please <strong>Login</strong> to save your progress!');
+                showCustomAlert('Please <strong>Login</strong> to save your progress!', true);
                 return;
             }
             if (currentPopupId) {
